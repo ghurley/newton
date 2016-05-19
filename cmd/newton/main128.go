@@ -12,10 +12,9 @@ import (
 )
 
 func main() {
-	const upperLeft complex64 = -1.5 + 1.5i
-	const lowerRight complex64 = 1.5 - 1.5i
+	const upperLeft = -1.5 + 1.5i
+	const lowerRight = 1.5 - 1.5i
 
-	// Uncomment if you want profiling.
 	f, err := os.Create("prog.prof")
 	if err != nil {
 		log.Fatal(err)
@@ -25,9 +24,9 @@ func main() {
 
 	start := time.Now()
 
-	img := newton.DrawNewton64(640, 480, upperLeft, lowerRight)
+	img := newton.DrawNewton128(640, 480, upperLeft, lowerRight)
 	fmt.Println("Calculation time: ", time.Since(start))
-	ofile, err := os.Create("fractal_newton64.png")
+	ofile, err := os.Create("fractal_newton128.png")
 	fmt.Println(time.Since(start))
 	if err != nil {
 		log.Fatal(err)
