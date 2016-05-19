@@ -15,12 +15,14 @@ func main() {
 	const upperLeft = -1.5 + 1.5i
 	const lowerRight = 1.5 - 1.5i
 
-	f, err := os.Create("prog.prof")
+	// Un/comment for profiling.
+	f, err := os.Create("prog128.prof")
 	if err != nil {
 		log.Fatal(err)
 	}
 	pprof.StartCPUProfile(f)
 	defer pprof.StopCPUProfile()
+	// End profiling code.
 
 	start := time.Now()
 

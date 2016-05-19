@@ -8,14 +8,30 @@ don't need to roll your own complex point structs/arithmetic.
 Here, it offered a chance to learn go, its tools, and how golang packages are
 typically structured.
 
+## Running the code and generating images
+
+The code is implemented as a library that returns an image.RGBA but since
+I actually wanted to see the output and run some profiling code there is
+a main package file in cmd/newton.
+
+```
+$ cd cmd/newton
+$ go run main.go
+```
+
+Will output a copy of timing related numbers to the console and will create
+an output PNG file (and profiling data if that code is not commented out).
+
+## Musings
+
 It runs surprisingly slowly and I think it got a lot slower with a recent golang
 update. About 1300ms on my MacBookAir. The most recent of my prior
 implementations of this code was in JavaScript and it computed the same size
 image in under 200ms on the same hardware.
 
 The slowness on the older golang version
-seemed to be memory allocation related. The new slowness seems more related
-to FP math.
+seemed to be memory allocation related. The new slowness seems split between
+memory allocation and the actual math.
 
 ```
 (pprof) top10
@@ -37,9 +53,4 @@ Showing top 10 nodes out of 60 (cum >= 50ms)
 I'm surprised to see all the trig functions (and satan!) which I don't invoke
 directly so they may all come from the `cmplx.Abs()`. Even if I managed to get
 rid of all of that slowness, the runtime.(\*mcentral).grow would still make
-this implementation slower than the JS version. According to my "research" (a
-10 second perusal of Google search results) grow is memory/heap allocation.
-The fact that there is no listing for `sweep` at least means that I don't need
-to fight the GC. Still, 270ms for memory allocation is insane. Maybe I should
-preallocate a fixed size array of `color.RGBA`s instead of creating
-and returning them one at a time.
+this implementation slower than the JS version.

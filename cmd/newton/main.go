@@ -15,13 +15,14 @@ func main() {
 	const upperLeft complex64 = -1.5 + 1.5i
 	const lowerRight complex64 = 1.5 - 1.5i
 
-	// Uncomment if you want profiling.
-	f, err := os.Create("prog.prof")
+	// Un/comment for profiling.
+	f, err := os.Create("prog64.prof")
 	if err != nil {
 		log.Fatal(err)
 	}
 	pprof.StartCPUProfile(f)
 	defer pprof.StopCPUProfile()
+	// End profiling code.
 
 	start := time.Now()
 
