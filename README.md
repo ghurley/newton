@@ -21,11 +21,15 @@ $ go run main.go
 
 Will output a copy of timing related numbers to the console and will create
 an output PNG file (and profiling data if that code is not commented out).
+There is a 128 bit version as well but there's no detectable difference in
+the output with the given bounds. The 128-bit version runs slightly faster
+because the golang complex number arithmetic functions only operates on 128
+bit numbers and so the 64 bit version does a lot of casting.
 
 ## Musings
 
-It runs surprisingly slowly and I think it got a lot slower with a recent golang
-update. About 1300ms on my MacBookAir. The most recent of my prior
+It runs surprisingly slowly and I think it got a lot slower with a recent
+golang update. About 1300ms on my MacBookAir. The most recent of my prior
 implementations of this code was in JavaScript and it computed the same size
 image in under 200ms on the same hardware.
 
@@ -52,5 +56,5 @@ Showing top 10 nodes out of 60 (cum >= 50ms)
 
 I'm surprised to see all the trig functions (and satan!) which I don't invoke
 directly so they may all come from the `cmplx.Abs()`. Even if I managed to get
-rid of all of that slowness, the runtime.(\*mcentral).grow would still make
+rid of all of that slowness, the `runtime.(\*mcentral).grow` would still make
 this implementation slower than the JS version.
