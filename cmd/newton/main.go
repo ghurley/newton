@@ -5,6 +5,7 @@ import (
 	"image/png"
 	"log"
 	"os"
+	"runtime/pprof"
 	"time"
 
 	"github.com/ghurley/newton"
@@ -15,14 +16,12 @@ func main() {
 	const lowerRight complex64 = 1.5 - 1.5i
 
 	// Uncomment if you want profiling.
-	/*
-		f, err := os.Create("prog.prof")
-		if err != nil {
-			log.Fatal(err)
-		}
-		pprof.StartCPUProfile(f)
-		defer pprof.StopCPUProfile()
-	*/
+	f, err := os.Create("prog.prof")
+	if err != nil {
+		log.Fatal(err)
+	}
+	pprof.StartCPUProfile(f)
+	defer pprof.StopCPUProfile()
 
 	start := time.Now()
 
