@@ -14,7 +14,9 @@ const (
 )
 
 func newton128(x complex128) complex128 {
-	return x - ((cmplx.Pow(x, 3) - 1) / (3.0 * cmplx.Pow(x, 2)))
+	xSquared := x * x
+	xCubed := xSquared * x
+	return x - ((xCubed - 1) / (3.0 * xSquared))
 }
 
 // DrawNewton128 iterates over complex points in a plane defined by two corner
