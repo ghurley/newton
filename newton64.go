@@ -15,9 +15,12 @@ const (
 
 func newton64(x complex64) complex64 {
 	// The cmplx methods only operate on complex128s so we although we're
-	// interetesting in looking at the degredation caused by using complex64,
-	// we still have to cast up to the 128 value. We'll still be operating a
-	// defecit but there's a better way to do this
+	// interetested in looking at the degredation caused by using complex64,
+	// we still have to cast up to 128 bits.
+
+	// Note (ghurley): it should be faster to do the exponentiation with
+	// straight multiplication since you could reuse the squared value for
+	// the cubic. But this way is a little easier to understand.
 	x128 := complex128(x)
 	return complex64(x128 - ((cmplx.Pow(x128, 3) - 1) / (3.0 * cmplx.Pow(x128, 2))))
 }
