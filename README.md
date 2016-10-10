@@ -1,3 +1,4 @@
+![Newton's method fractal](cmd/newton/fractal_newton128.png)
 # Newton's Method Fractal Generation
 
 Code to draw the Newton's method fractal for the solutions to z³ - 1 = 0. I've
@@ -58,3 +59,7 @@ I'm surprised to see all the trig functions (and satan!) which I don't invoke
 directly so they may all come from the `cmplx.Abs()`. Even if I managed to get
 rid of all of that slowness, the `runtime.(\*mcentral).grow` would still make
 this implementation slower than the JS version.
+
+### [UPDATE]
+Well, I found a way to cut the runtime by more than half. In short, don't use cmplx.Pow();
+do the multiplication [manually](https://github.com/ghurley/newton/commit/7bfc9069c95d5961d3144961c7c35f8ab45a9783).
